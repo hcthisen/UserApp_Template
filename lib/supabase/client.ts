@@ -6,7 +6,7 @@ export const createSupabaseBrowserClient = () => {
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
-      "Supabase environment variables are missing. Add SUPABASE_URL and SUPABASE_ANON to your .env file."
+      "Supabase environment variables are missing. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env file."
     );
   }
 

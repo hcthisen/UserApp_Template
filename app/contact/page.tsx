@@ -1,18 +1,41 @@
-import type { FormEvent } from "react";
+"use client";
 
-export const metadata = {
+import { useMemo, useState, type FormEvent } from "react";
+import type { Metadata } from "next";
+
+type FieldDescriptor = {
+  name: string;
+  label: string;
+  placeholder: string;
+  type?: string;
+  as?: "input" | "textarea";
+};
+
+export const metadata: Metadata = {
   title: "Contact",
   description: "Reach out to the team behind this Supabase starter.",
 };
 
 export default function ContactPage() {
+  const [submissionStatus, setSubmissionStatus] = useState<string | null>(null);
+
+  const fields = useMemo<FieldDescriptor[]>(
+    () => [
+      { name: "name", label: "Name", placeholder: "Your name", type: "text" },
+      { name: "email", label: "Email", placeholder: "you@example.com", type: "email" },
+      { name: "message", label: "Message", placeholder: "How can we help?", as: "textarea" },
+    ],
+    []
+  );
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmissionStatus(null);
     const formData = new FormData(event.currentTarget);
-    // TODO: Connect this form to your preferred email provider or API route.
+
     console.log("Contact form submitted", Object.fromEntries(formData.entries()));
     event.currentTarget.reset();
-    alert("Thanks for reaching out! Replace this alert with your own handler.");
+    setSubmissionStatus("Thanks for reaching out! Replace this handler with your own integration.");
   };
 
   return (
@@ -21,25 +44,38 @@ export default function ContactPage() {
       <p className="page-lead">Have questions about adapting this template? Drop a note below.</p>
 
       <form className="form-card" onSubmit={handleSubmit}>
-        <label className="field">
-          <span className="label">Name</span>
-          <input className="input" name="name" type="text" required placeholder="Your name" />
-        </label>
+        {fields.map((field) => {
+          const isTextArea = field.as === "textarea";
+          return (
+            <label key={field.name} className="field">
+              <span className="label">{field.label}</span>
+              {isTextArea ? (
+                <textarea
+                  className="textarea"
+                  name={field.name}
+                  required
+                  placeholder={field.placeholder}
+                  rows={4}
+                />
+              ) : (
+                <input
+                  className="input"
+                  name={field.name}
+                  type={field.type}
+                  required
+                  placeholder={field.placeholder}
+                />
+              )}
+            </label>
+          );
+        })}
 
-        <label className="field">
-          <span className="label">Email</span>
-          <input className="input" name="email" type="email" required placeholder="you@example.com" />
-        </label>
-
-        <label className="field">
-          <span className="label">Message</span>
-          <textarea className="textarea" name="message" required placeholder="How can we help?" />
-        </label>
+        {submissionStatus ? <p className="message">{submissionStatus}</p> : null}
 
         <button className="button" type="submit">
           Send message
         </button>
       </form>
     </div>
-    );
-  }
+  );
+}
