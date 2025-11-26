@@ -25,10 +25,8 @@ export default function PrivacyPage() {
 
       <section className="space-y-2">
         <h2>Cookies</h2>
-        <p>
-          Describe the cookies or local storage used for authentication and preferences. Let users know how they can manage or
-          opt out of non-essential cookies.
-        </p>
+        <p>Describe the cookies or local storage used for authentication and preferences.</p>
+        <p>Let users know how they can manage or opt out of non-essential cookies.</p>
         <p className="page-lead">
           <strong>TODO:</strong> Add your cookie categories and retention periods.
         </p>
