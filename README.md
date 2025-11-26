@@ -10,9 +10,8 @@ your product.
 - Vanilla CSS for the default layout
 
 ## Getting started
-1. Clone the repository, change into the `app` directory, and install dependencies:
+1. Clone the repository, install dependencies, and start the dev server:
    ```bash
-   cd app
    npm install
    npm run dev
    ```
