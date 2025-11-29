@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import type { Metadata } from "next";
 
 type FieldDescriptor = {
   name: string;
@@ -9,11 +8,6 @@ type FieldDescriptor = {
   placeholder: string;
   type?: string;
   as?: "input" | "textarea";
-};
-
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Reach out to the team behind this Supabase starter.",
 };
 
 export default function ContactPage() {
